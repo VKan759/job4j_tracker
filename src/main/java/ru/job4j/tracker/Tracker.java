@@ -45,6 +45,14 @@ public class Tracker {
         return Arrays.copyOf(result, length);
     }
 
+    public void delete(int id) {
+        int index = indexOf(id);
+        if (index != -1) {
+            System.arraycopy(items, index + 1, items, index, size - index - 1);
+            size--;
+        }
+    }
+
     public boolean replace(int id, Item item) {
         if (indexOf(id) != -1) {
             items[indexOf(id)] = item;
@@ -53,11 +61,4 @@ public class Tracker {
         return indexOf(id) != -1;
     }
 
-    public void delete(int id) {
-        int index = indexOf(id);
-        if (index != -1) {
-            System.arraycopy(items, index + 1, items, index, size - index - 1);
-            size--;
-        }
-    }
 }
