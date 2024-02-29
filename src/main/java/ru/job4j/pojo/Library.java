@@ -22,7 +22,7 @@ public class Library {
         books[0] = books[3];
         books[3] = example;
         for (int i = 0; i < books.length; i++) {
-            if (books[i].getName().equals("Clean code")) {
+            if ("Clean code".equals(books[i].getName())) {
                 System.out.println(books[i].getName() + " - " + books[i].getPagesCount());
             }
         }
