@@ -3,15 +3,15 @@ package ru.job4j.cast;
 public class Main {
     public static void main(String[] args) {
         Vehicle[] vehicles = new Vehicle[9];
-        Bus bus = new Bus();
-        Bus schoolBus = new Bus();
-        Bus factoryBus = new Bus();
-        Plane airPlane = new Plane();
-        Plane copter = new Plane();
-        Plane firstPlane = new Plane();
-        Train firstTrain = new Train();
-        Train highSpeedTrain = new Train();
-        Train train = new Train();
+        Vehicle bus = new Bus();
+        Vehicle schoolBus = new Bus();
+        Vehicle factoryBus = new Bus();
+        Vehicle airPlane = new Plane();
+        Vehicle copter = new Plane();
+        Vehicle firstPlane = new Plane();
+        Vehicle firstTrain = new Train();
+        Vehicle highSpeedTrain = new Train();
+        Vehicle train = new Train();
 
         vehicles[0] = bus;
         vehicles[1] = schoolBus;
