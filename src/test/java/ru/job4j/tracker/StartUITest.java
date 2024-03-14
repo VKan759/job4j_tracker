@@ -1,13 +1,14 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartUITest {
     @Test
     void whenCreateItem() {
         Input input = new MockInput(
-                new String[] {"0", "Item name", "1"}
+                new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
@@ -24,7 +25,7 @@ class StartUITest {
         Item item = tracker.add(new Item("Replaced item")); /* Добавляется в tracker новая заявка */
         String replacedName = "New item name";
         Input input = new MockInput(
-                new String[] {"0", String.valueOf(item.getId()), replacedName, "1"}
+                new String[]{"0", String.valueOf(item.getId()), replacedName, "1"}
         );
         UserAction[] actions = {
                 new ReplaceAction(),
@@ -39,7 +40,7 @@ class StartUITest {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("Deleted item")); /* Добавляется в tracker новая заявка */
         Input input = new MockInput(
-                new String[] {"0", String.valueOf(item.getId()), "1"}
+                new String[]{"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
                 new DeleteAction(),
