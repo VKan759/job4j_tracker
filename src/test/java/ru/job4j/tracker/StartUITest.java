@@ -180,7 +180,6 @@ class StartUITest {
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
-
                 "Меню: " + ln
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
