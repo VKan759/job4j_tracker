@@ -27,20 +27,19 @@ public class UserStore {
         User[] users = {
                 new User("Petr Arsentev", true)
         };
-        User user = null;
+        User user;
         try {
             user = findUser(users, "Petr Arsentev");
-        } catch (UserNotFoundException e) {
-            System.out.println("Пользователь не найден");
-            e.printStackTrace();
-        }
-        try {
-            if (validate(user)) {
-                System.out.println("This user has an access");
-            }
+                if (validate(user)) {
+                    System.out.println("This user has an access");
+                }
         } catch (UserInvalidException ui) {
             System.out.println("Пользователь не валидный");
             ui.printStackTrace();
+        } catch (UserNotFoundException e) {
+            System.out.println("Пользователь не найден");
+            e.printStackTrace();
+
         }
     }
 }
