@@ -71,7 +71,7 @@ class StartUITest {
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
-                "Меню: " + ln
+                "Меню:" + ln
                         + "0. Завершить программу" + ln
                         + "=== Завершение программы ===" + ln
         );
@@ -94,12 +94,12 @@ class StartUITest {
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
 
-                "Меню: " + ln
+                "Меню:" + ln
                         + "0. Изменить заявку" + ln
                         + "1. Завершить программу" + ln
                         + "=== Редактирование заявки ===" + ln
                         + "Заявка изменена успешно." + ln
-                        + "Меню: " + ln
+                        + "Меню:" + ln
                         + "0. Изменить заявку" + ln
                         + "1. Завершить программу" + ln
                         + "=== Завершение программы ===" + ln
@@ -125,13 +125,13 @@ class StartUITest {
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
 
-                "Меню: " + ln
+                "Меню:" + ln
                         + "0. Показать все заявки" + ln
                         + "1. Завершить программу" + ln
                         + "=== Вывод всех заявок ===" + ln
                         + firstItem + ln
                         + secondItem + ln
-                        + "Меню: " + ln
+                        + "Меню:" + ln
                         + "0. Показать все заявки" + ln
                         + "1. Завершить программу" + ln
                         + "=== Завершение программы ===" + ln
@@ -154,12 +154,12 @@ class StartUITest {
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
-                "Меню: " + ln
+                "Меню:" + ln
                         + "0. Показать заявки по имени" + ln
                         + "1. Завершить программу" + ln
                         + "=== Вывод заявок по имени ===" + ln
                         + item + ln
-                        + "Меню: " + ln
+                        + "Меню:" + ln
                         + "0. Показать заявки по имени" + ln
                         + "1. Завершить программу" + ln
                         + "=== Завершение программы ===" + ln);
@@ -180,12 +180,12 @@ class StartUITest {
         new StartUI(output).init(input, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(output.toString()).isEqualTo(
-                "Меню: " + ln
+                "Меню:" + ln
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
                         + "=== Вывод заявки по id ===" + ln
                         + item + ln
-                        + "Меню: " + ln
+                        + "Меню:" + ln
                         + "0. Показать заявку по id" + ln
                         + "1. Завершить программу" + ln
                         + "=== Завершение программы ===" + ln);
