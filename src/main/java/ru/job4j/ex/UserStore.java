@@ -39,7 +39,6 @@ public class UserStore {
         } catch (UserNotFoundException e) {
             System.out.println("Пользователь не найден");
             e.printStackTrace();
-
         }
     }
 }
