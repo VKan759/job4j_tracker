@@ -48,4 +48,16 @@ class ValidateInputTest {
         int selected5 = input.askInt("Enter menu:");
         assertThat(selected5).isEqualTo(-2);
     }
+
+    @Test
+    void whenValidInputMinus3() {
+        Output output = new StubOutput();
+        Input in = new MockInput(
+                new String[]{"-3"}
+        );
+        ValidateInput input = new ValidateInput(output, in);
+        int selected = input.askInt("Enter menu:");
+        assertThat(selected).isEqualTo(-3);
+
+    }
 }
