@@ -24,7 +24,7 @@ class StartUITest {
         actions.add(new CreateAction(output));
         actions.add(new ExitAction(output));
         new StartUI(output).init(input, tracker, actions);
-        assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
+        assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
     @Test
