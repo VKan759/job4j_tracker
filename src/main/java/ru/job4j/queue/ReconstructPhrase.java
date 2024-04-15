@@ -15,19 +15,17 @@ public class ReconstructPhrase {
 
     private String getEvenElements(Deque evenElements) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int index = 0; index < evenElements.size(); index++) {
+        for (int index = evenElements.size(); index > 0; index = index - 2) {
             stringBuilder.append(evenElements.pollFirst());
             evenElements.pollFirst();
-            index = 0;
         }
         return stringBuilder.toString();
     }
 
     private String getDescendingElements(Deque descendingElements) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (int index = 0; index <= descendingElements.size(); index++) {
+        for (int index = descendingElements.size(); index > 0; index--) {
             stringBuilder.append(descendingElements.pollLast());
-            index = 0;
         }
         return stringBuilder.toString();
     }
