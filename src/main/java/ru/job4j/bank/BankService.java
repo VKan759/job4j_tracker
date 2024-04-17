@@ -38,7 +38,7 @@ public class BankService {
         if (user != null) {
             List<Account> accounts = getAccounts(user);
             for (Account account : accounts) {
-                if (requisite.equals(account.getRequisite())) {
+                if (account != null && account.getRequisite().equals(requisite)) {
                     return account;
                 }
             }
