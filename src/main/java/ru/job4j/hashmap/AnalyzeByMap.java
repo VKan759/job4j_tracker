@@ -34,84 +34,53 @@ public class AnalyzeByMap {
     }
 
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
-        Set<String> setNames = new HashSet<>();
         Map<String, Integer> map = new LinkedHashMap<>();
         List<Label> result = new ArrayList<>();
 
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                setNames.add(subject.name());
+                String name = subject.name();
+                map.put(name, subject.score() + map.getOrDefault(name, 0));
             }
-        }
-
-        for (String element : setNames) {
-            double score = 0;
-            int subjectIteration = 0;
-            for (Pupil pupil : pupils) {
-                for (Subject subject : pupil.subjects()) {
-                    if (element.equals(subject.name())) {
-                        score += subject.score();
-                        subjectIteration++;
-                    }
-                }
-            }
-            map.put(element, (int) score / subjectIteration);
         }
 
         for (Map.Entry<String, Integer> m : map.entrySet()) {
-            result.add(new Label(m.getKey(), m.getValue()));
+            result.add(new Label(m.getKey(), (double) m.getValue() / pupils.size()));
         }
 
         return result;
     }
 
     public static Label bestStudent(List<Pupil> pupils) {
-        Label result = null;
-        int sumScore = 0;
+        List<Label> result = new ArrayList<>();
         for (Pupil pupil : pupils) {
-            int score = 0;
+            double score = 0;
             List<Subject> subjects = pupil.subjects();
             for (Subject subject : subjects) {
                 score += subject.score();
             }
-            if (score > sumScore) {
-                sumScore = score;
-                result = new Label(pupil.name(), sumScore);
-            }
+            double averageAmount = score;
+            result.add(new Label(pupil.name(), averageAmount));
         }
-        return result;
+        result.sort(Comparator.naturalOrder());
+        return result.get(result.size() - 1);
     }
 
     public static Label bestSubject(List<Pupil> pupils) {
-        Set<String> setNames = new HashSet<>();
         Map<String, Integer> map = new LinkedHashMap<>();
-        Label result = null;
-        int bestScore = 0;
+        List<Label> result = new ArrayList<>();
 
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                setNames.add(subject.name());
+                String name = subject.name();
+                map.put(name, subject.score() + map.getOrDefault(name, 0));
             }
-        }
-
-        for (String element : setNames) {
-            double score = 0;
-            for (Pupil pupil : pupils) {
-                for (Subject subject : pupil.subjects()) {
-                    if (element.equals(subject.name())) {
-                        score += subject.score();
-                    }
-                }
-            }
-            map.put(element, (int) score);
         }
 
         for (Map.Entry<String, Integer> m : map.entrySet()) {
-            if (m.getValue() > bestScore) {
-                bestScore = m.getValue();
-                result = new Label(m.getKey(), bestScore);
-            }
+            result.add(new Label(m.getKey(), (double) m.getValue()));
         }
-        return result;
+        result.sort(Comparator.naturalOrder());
+        return result.get(result.size() - 1);
     }
 }
