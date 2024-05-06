@@ -23,7 +23,7 @@ public class AttachmentSort {
         Comparator<Attachment> nameComparator = new Comparator<Attachment>() {
             @Override
             public int compare(Attachment o1, Attachment o2) {
-                return Integer.compare(o1.getName().length(), o2.getName().length());
+                return o1.getName().compareTo(o2.getName());
             }
         };
     }
