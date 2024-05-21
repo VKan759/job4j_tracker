@@ -1,6 +1,5 @@
 package ru.job4j.stream;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Card {
@@ -13,12 +12,11 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        List<Card> list = Stream.of(Suit.values())
+        Stream.of(Suit.values())
                 .flatMap(suit -> Stream.of(Value.values())
                         .map(value1 -> new Card(suit, value1)))
-                .toList();
-
-        list.forEach(System.out::println);
+                .toList()
+                .forEach(System.out::println);
     }
 
     @Override
