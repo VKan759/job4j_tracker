@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.io.InputStream;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -43,10 +44,11 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement statement = connection.prepareStatement("insert into items(name) values (?);",
+        try (PreparedStatement statement = connection.prepareStatement("insert into items(name, time) values (?, ?);",
                 Statement.RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, item.getName());
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.executeUpdate();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -95,7 +97,8 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = connection.prepareStatement("Select * from items;")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add(new Item(resultSet.getString("name"), resultSet.getInt("id")));
+                    result.add(new Item(resultSet.getString("name"), resultSet.getInt("id"),
+                            resultSet.getTimestamp("time").toLocalDateTime()));
                 }
             }
         } catch (Exception e) {
@@ -111,7 +114,11 @@ public class SqlTracker implements Store {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    result.add(new Item(resultSet.getString("name"), resultSet.getInt("id")));
+                    result.add(new Item(
+                            resultSet.getString("name"),
+                            resultSet.getInt("id"),
+                            resultSet.getTimestamp("time").toLocalDateTime())
+                    );
                 }
             }
         } catch (Exception e) {
@@ -129,8 +136,8 @@ public class SqlTracker implements Store {
                 if (resultSet.next()) {
                     String resultName = resultSet.getString("name");
                     int resultId = resultSet.getInt("id");
-                    Item resultItem = new Item(resultName, resultId);
-                    result = resultItem;
+                    LocalDateTime created = resultSet.getTimestamp("time").toLocalDateTime();
+                    result = new Item(resultName, resultId, created);
                 }
             }
         } catch (Exception e) {
