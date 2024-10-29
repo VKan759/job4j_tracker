@@ -5,7 +5,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.job4j.tracker.Item;
+import ru.job4j.tracker.MemTracker;
 import ru.job4j.tracker.SqlTracker;
+import ru.job4j.tracker.Store;
+import ru.job4j.tracker.action.DeleteAction;
+import ru.job4j.tracker.action.FindByIdAction;
+import ru.job4j.tracker.action.FindByNameAction;
+import ru.job4j.tracker.action.ReplaceAction;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.output.Output;
+import ru.job4j.tracker.output.StubOutput;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -16,6 +25,9 @@ import java.util.List;
 import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class SqlTrackerTest {
 
@@ -112,5 +124,63 @@ public class SqlTrackerTest {
         Item item = new Item("item123");
         tracker.add(item);
         assertThat(tracker.findById(item.getId())).isEqualTo(item);
+    }
+
+    @Test
+    public void whenItemWasReplacedSuccessfully() {
+        Output output = new StubOutput();
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("Replaced item"));
+        String replacedName = "New item name";
+        ReplaceAction replaceAction = new ReplaceAction(output);
+        Input input = mock(Input.class);
+
+        when(input.askInt(any(String.class))).thenReturn(1);
+        when(input.askStr(any(String.class))).thenReturn(replacedName);
+
+        replaceAction.execute(input, tracker);
+        String ln = System.lineSeparator();
+        assertThat(output.toString()).isEqualTo(
+                "=== Редактирование заявки ===" + ln
+                        + "Заявка изменена успешно." + ln
+        );
+    }
+
+    @Test
+    public void whenItemWasDeletedSuccessfully() {
+        Output output = new StubOutput();
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("item"));
+        DeleteAction deleteAction = new DeleteAction(output);
+        Input input = mock(Input.class);
+        when(input.askInt(any(String.class))).thenReturn(1);
+        deleteAction.execute(input, tracker);
+        String ln = System.lineSeparator();
+        assertThat(output.toString()).isEqualTo(
+                "=== Удаление заявки ===" + ln
+                        + "Заявка удалена успешно." + ln
+        );
+    }
+
+    @Test
+    public void whenFindByNameSuccessfully() {
+        Output output = new StubOutput();
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("item"));
+        FindByNameAction findByNameAction = new FindByNameAction(output);
+        Input input = mock(Input.class);
+        when(input.askStr(any(String.class))).thenReturn("item");
+        assertThat(findByNameAction.execute(input, tracker)).isTrue();
+    }
+
+    @Test
+    public void whenFindByIdSuccessfully() {
+        Output output = new StubOutput();
+        Store tracker = new MemTracker();
+        Item item = tracker.add(new Item("item"));
+        FindByIdAction findById = new FindByIdAction(output);
+        Input input = mock(Input.class);
+        when(input.askInt(any(String.class))).thenReturn(1);
+        assertThat(findById.execute(input, tracker)).isTrue();
     }
 }
