@@ -22,7 +22,8 @@ public class CreateAction implements UserAction {
     public boolean execute(Input input, Store tracker) {
         output.println("=== Создание новой заявки ===");
         String name = input.askStr("Введите имя: ");
-        Item item = new Item(name);
+        Item item = new Item();
+        item.setName(name);
         tracker.add(item);
         output.println("Добавленная заявка: " + item);
         return true;
