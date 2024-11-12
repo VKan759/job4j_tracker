@@ -71,7 +71,7 @@ public class SqlTrackerTest {
         SqlTracker tracker = new SqlTracker(connection);
         Item item = new Item("item");
         tracker.add(item);
-        Item result = new Item("replaced item", item.getId(), item.getCreated());
+        Item result = new Item( item.getId(), "replaced item",item.getCreated());
         tracker.replace(item.getId(), result);
         assertThat(tracker.findById(item.getId())).isEqualTo(result);
     }

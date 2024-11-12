@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.TimeUnit;
 
 @Entity
 @Table(name = "items")
@@ -20,5 +21,5 @@ public class Item {
     @NonNull
     private String name;
     @Column(name = "time")
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = LocalDateTime.now().truncatedTo(TimeUnit.MINUTES.toChronoUnit());
 }
