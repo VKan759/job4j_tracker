@@ -12,4 +12,5 @@
     <include file="scripts/002_ddl_alter_table_items_add_checked_column.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_alter_table_item_drop_column_checked.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_alter_table_item_rename_column_created_to_time.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/002_dml_insert_items_data.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
