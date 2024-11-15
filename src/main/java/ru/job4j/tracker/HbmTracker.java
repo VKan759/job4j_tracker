@@ -6,7 +6,6 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class HbmTracker implements Store, AutoCloseable {
@@ -21,8 +20,7 @@ public class HbmTracker implements Store, AutoCloseable {
         Item result = null;
         try {
             session.beginTransaction();
-            Serializable saved = session.save(item);
-            item.setId((Integer) saved);
+            session.save(item);
             result = item;
             session.getTransaction().commit();
         } catch (Exception e) {

@@ -28,7 +28,7 @@ public class HibernateRun {
             for (Item it : list) {
                 System.out.println(it);
             }
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             StandardServiceRegistryBuilder.destroy(registry);
@@ -37,46 +37,73 @@ public class HibernateRun {
 
     public static Item create(Item item, SessionFactory sf) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        session.save(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            session.save(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
         return item;
     }
 
     public static void update(Item item, SessionFactory sf) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        session.update(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            session.update(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
     }
 
     public static void delete(Integer id, SessionFactory sf) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        Item item = new Item();
-        item.setId(id);
-        session.delete(item);
-        session.getTransaction().commit();
-        session.close();
+        try {
+            session.beginTransaction();
+            Item item = new Item();
+            item.setId(id);
+            session.delete(item);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction();
+        } finally {
+            session.close();
+        }
     }
 
     public static List<Item> findAll(SessionFactory sf) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        List<Item> result = session.createQuery("from Item", Item.class).list();
-        session.getTransaction().commit();
-        session.close();
+        List<Item> result = List.of();
+        try {
+            session.beginTransaction();
+            result = session.createQuery("from Item", Item.class).list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
         return result;
     }
 
     public static Item findById(Integer id, SessionFactory sf) {
         Session session = sf.openSession();
-        session.beginTransaction();
-        Item result = session.get(Item.class, id);
-        session.getTransaction().commit();
-        session.close();
+        Item result = null;
+        try {
+            session.beginTransaction();
+            result = session.get(Item.class, id);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
         return result;
     }
 }
