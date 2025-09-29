@@ -7,7 +7,6 @@ import ru.job4j.tracker.input.ValidateInput;
 import ru.job4j.tracker.output.ConsoleOutput;
 import ru.job4j.tracker.output.Output;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class StartUI {
@@ -46,6 +45,8 @@ public class StartUI {
         );
         try (Store tracker = new SqlTracker()) {
             List<UserAction> actions = List.of(
+                    new CreateManyItems(output),
+                    new DeleteAllItems(output),
                     new CreateAction(output),
                     new ReplaceAction(output),
                     new DeleteAction(output),
