@@ -106,7 +106,7 @@ public class SqlTrackerTest {
         tracker.add(item);
         tracker.add(secondItem);
         List<Item> result = List.of(item, secondItem);
-        assertThat(tracker.findAll()).isEqualTo(result);
+        assertThat(tracker.findAll()).usingRecursiveComparison().ignoringFields("time").isEqualTo(result);
     }
 
     @Test

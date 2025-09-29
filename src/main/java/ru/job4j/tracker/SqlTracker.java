@@ -45,7 +45,7 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        try (PreparedStatement statement = connection.prepareStatement("insert into items(name, created) values (?, ?);",
+        try (PreparedStatement statement = connection.prepareStatement("insert into items(name, time) values (?, ?);",
                 Statement.RETURN_GENERATED_KEYS)
         ) {
             statement.setString(1, item.getName());
@@ -99,7 +99,7 @@ public class SqlTracker implements Store {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     result.add(new Item(resultSet.getInt("id"), resultSet.getString("name"),
-                            resultSet.getTimestamp("created").toLocalDateTime()));
+                            resultSet.getTimestamp("time").toLocalDateTime()));
                 }
             }
         } catch (Exception e) {
@@ -137,7 +137,7 @@ public class SqlTracker implements Store {
                 if (resultSet.next()) {
                     String resultName = resultSet.getString("name");
                     int resultId = resultSet.getInt("id");
-                    LocalDateTime created = resultSet.getTimestamp("created").toLocalDateTime();
+                    LocalDateTime created = resultSet.getTimestamp("time").toLocalDateTime();
                     result = new Item(resultId, resultName, created);
                 }
             }
